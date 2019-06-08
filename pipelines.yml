@@ -28,3 +28,5 @@ pipelines:
           dockerImageTag: latest
           inputResources:
             - name: go_gitRepo
+          integrations:
+            - name: art
