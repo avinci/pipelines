@@ -60,7 +60,7 @@ pipelines:
 #          onExecute:
 #            - printenv
 
-      - name: bld_go_svc
+      - name: bld_svc
         type: DockerBuild
         configuration:
           dockerFileLocation: .
@@ -72,35 +72,35 @@ pipelines:
           integrations:
             - name: art
 
-      - name: push_go_svc
+      - name: push_svc
         type: PushArtifactoryPackage
         configuration:
           targetRepo: docker-local
           integrations:
             - name: art
           inputSteps:
-            - name: bld_go_svc
+            - name: bld_svc
 
-#      - name: publish_go_build
-#        type: PublishBuildInfo
-#        configuration:
-#          integrations:
-#            - name: art
-#          inputSteps:
-#            - name: push_go_svc
-#          outputResources:
-#            - name: go_build_info
-#
-#      - name: promote_go_build
-#        type: PromoteBuild
-#        configuration:
-#          integrations:
-#            - name: art
-#          inputResources:
-#            - name: go_build_info
-#          outputResources:
-#            - name: go_promoted_build_info
-#
+      - name: publish_svc_build
+        type: PublishBuildInfo
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: push_svc
+          outputResources:
+            - name: svc_build_info
+
+      - name: promote_svc_build
+        type: PromoteBuild
+        configuration:
+          integrations:
+            - name: art
+          inputResources:
+            - name: svc_build_info
+          outputResources:
+            - name: svc_promoted_build_info
+
 #      - name: bld_backend
 #        type: MvnBuild
 #        configuration:
