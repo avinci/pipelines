@@ -154,9 +154,7 @@ pipelines:
               trigger: false
           inputSteps:
             - name: promote_backend_build
-              trigger: false
             - name: promote_svc_build
-              trigger: false
           outputResources:
             - name: releaseBundle
           releaseNotes:
