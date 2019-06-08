@@ -12,12 +12,12 @@ resources:
       buildName: go_build
       buildNumber: 1
 
-  - name: go_promoted_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: art
-      buildName: go_build1
-      buildNumber: 1
+#  - name: go_promoted_build_info
+#    type: BuildInfo
+#    configuration:
+#      sourceArtifactory: art
+#      buildName: go_build
+#      buildNumber: 1
 #
 #  - name: backend_gitRepo
 #    type: GitRepo
