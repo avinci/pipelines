@@ -12,6 +12,13 @@ resources:
       buildName: go_build
       buildNumber: 1
 
+  - name: go_promoted_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: go_build
+      buildNumber: 1
+
   - name: backend_gitRepo
     type: GitRepo
     configuration:
@@ -25,6 +32,19 @@ resources:
       buildName: backend_build
       buildNumber: 1
 
+  - name: backend_promoted_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: backend_build
+      buildNumber: 1
+
+  - name: releaseBundle
+    type: ReleaseBundle
+    configuration:
+      sourceArtifactory: art
+      name: demo
+      version: v1.0.0
 
 pipelines:
   - name: demo
@@ -71,6 +91,16 @@ pipelines:
           outputResources:
             - name: go_build_info
 
+      - name: promote_go_build
+        type: PromoteBuild
+        configuration:
+          integrations:
+            - name: art
+          inputResources:
+            - name: go_build_info
+          outputResources:
+            - name: go_promoted_build_info
+
       - name: bld_backend
         type: MvnBuild
         configuration:
@@ -93,3 +123,47 @@ pipelines:
             - popd
             - javac -version
             - mvn --version
+
+      - name: publish_backend_build
+        type: PublishBuildInfo
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: bld_backend
+          outputResources:
+            - name: backend_build_info
+
+      - name: promote_backend_build
+        type: PromoteBuild
+        configuration:
+          integrations:
+            - name: art
+          inputResources:
+            - name: backend_build_info
+          outputResources:
+            - name: backend_promoted_build_info
+
+      - name: bundle
+        type: CreateReleaseBundle
+        configuration:
+          releaseBundleName: demo
+          releaseBundleVersion: v1.0.0
+          dryRun: false
+          sign: false
+          description: "some random test description"
+          integrations:
+            - name: art
+          inputResources:
+            - name: go_promoted_build_info
+              trigger: false
+            - name: backend_promoted_build_info
+              trigger: false
+          outputResources:
+            - name: releaseBundle
+          releaseNotes:
+            syntax: markdown
+            content: |
+              ## Heading
+                * Bullet
+                * Points
