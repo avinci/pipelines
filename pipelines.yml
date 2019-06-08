@@ -19,7 +19,7 @@ pipelines:
           onExecute:
             - printenv
 
-      - name: bld_go_service
+      - name: bld_go_svc
         type: DockerBuild
         configuration:
           dockerFileLocation: .
@@ -30,3 +30,22 @@ pipelines:
             - name: go_gitRepo
           integrations:
             - name: art
+
+      - name: push_go_svc
+        type: push
+        configuration:
+          targetRepo: docker
+          integrations:
+            - name: art
+          inputSteps:
+            - name: bld_go_svc
+        setup:
+          push:
+            targetRepo: docker-local
+        requires:
+          integrations:
+            - art
+            - notifySlack
+        triggeredBy:
+          steps:
+            - dockerBuild
