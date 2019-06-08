@@ -5,6 +5,13 @@ resources:
       path: avinci/swampup-go-service
       gitProvider: avinci_pipelines
 
+  - name: go_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: go_build
+      buildNumber: 1
+
 pipelines:
   - name: demo
     steps:
@@ -39,3 +46,13 @@ pipelines:
             - name: art
           inputSteps:
             - name: bld_go_svc
+
+      - name: publish_go_build
+        type: PublishBuildInfo
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: push_go_svc
+          outputResources:
+            - name: go_build_info
