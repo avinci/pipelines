@@ -39,13 +39,3 @@ pipelines:
             - name: art
           inputSteps:
             - name: bld_go_svc
-        setup:
-          push:
-            targetRepo: docker-local
-        requires:
-          integrations:
-            - art
-            - notifySlack
-        triggeredBy:
-          steps:
-            - dockerBuild
