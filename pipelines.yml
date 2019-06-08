@@ -90,16 +90,16 @@ pipelines:
             - name: push_go_svc
           outputResources:
             - name: go_build_info
-
-      - name: promote_go_build
-        type: PromoteBuild
-        configuration:
-          integrations:
-            - name: art
-          inputResources:
-            - name: go_build_info
-          outputResources:
-            - name: go_promoted_build_info
+#
+#      - name: promote_go_build
+#        type: PromoteBuild
+#        configuration:
+#          integrations:
+#            - name: art
+#          inputResources:
+#            - name: go_build_info
+#          outputResources:
+#            - name: go_promoted_build_info
 #
 #      - name: bld_backend
 #        type: MvnBuild
