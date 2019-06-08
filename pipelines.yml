@@ -159,8 +159,8 @@ pipelines:
               trigger: false
             - name: backend_promoted_build_info
               trigger: false
-          inputSteps:
-            - name: promote_backend_build
+#          inputSteps:
+#            - name: promote_backend_build
           outputResources:
             - name: releaseBundle
           releaseNotes:
