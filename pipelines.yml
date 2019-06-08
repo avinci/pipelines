@@ -170,7 +170,7 @@ pipelines:
           sourceLocation: .
           repositoryName: demo-local
           inputResources:
-            - name: fontend_gitRepo
+            - name: frontend_gitRepo
           integrations:
             - name: art
 
