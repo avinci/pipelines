@@ -24,7 +24,7 @@ pipelines:
         configuration:
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: avinci/foo
+          dockerImageName: 34.66.110.173:8081/docker-local/gosvc
           dockerImageTag: latest
           inputResources:
             - name: go_gitRepo
