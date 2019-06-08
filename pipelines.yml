@@ -34,7 +34,7 @@ pipelines:
       - name: push_go_svc
         type: PushArtifactoryPackage
         configuration:
-          targetRepo: docker
+          targetRepo: docker-local
           integrations:
             - name: art
           inputSteps:
