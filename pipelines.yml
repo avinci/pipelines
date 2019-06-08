@@ -1,0 +1,6 @@
+resources:
+  - name: go_gitRepo
+    type: GitRepo
+    configuration:
+      path: eladh/swampup-go-service
+      gitProvider: avinci_pipelines
