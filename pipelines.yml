@@ -29,4 +29,4 @@ pipelines:
           inputResources:
             - name: go_gitRepo
           integrations:
-            - name: art
+            - name: ankul_artifactory
