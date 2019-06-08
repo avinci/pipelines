@@ -16,7 +16,7 @@ resources:
     type: BuildInfo
     configuration:
       sourceArtifactory: art
-      buildName: go_build
+      buildName: go_build1
       buildNumber: 1
 #
 #  - name: backend_gitRepo
