@@ -8,16 +8,16 @@ resources:
 pipelines:
   - name: demo
     steps:
-      - name: build_go_service
-        type: Bash
-        configuration:
-          integrations:
-            - name: art
-          inputResources:
-            - name: go_gitRepo
-        execution:
-          onExecute:
-            - printenv
+#      - name: build_go_service
+#        type: Bash
+#        configuration:
+#          integrations:
+#            - name: art
+#          inputResources:
+#            - name: go_gitRepo
+#        execution:
+#          onExecute:
+#            - printenv
 
       - name: bld_go_svc
         type: DockerBuild
