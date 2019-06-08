@@ -4,3 +4,17 @@ resources:
     configuration:
       path: avinci/swampup-go-service
       gitProvider: avinci_pipelines
+
+pipelines:
+  - name: app
+    steps:
+      - name: build_go_service
+        type: Bash
+        configuration:
+          integrations:
+            - name: art
+          inputResources:
+            - name: go_gitRepo
+        execution:
+          onExecute:
+            - printenv
