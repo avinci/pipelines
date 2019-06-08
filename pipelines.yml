@@ -18,3 +18,13 @@ pipelines:
         execution:
           onExecute:
             - printenv
+
+      - name: bld_go_service
+        type: DockerBuild
+        configuration:
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: avinci/foo
+          dockerImageTag: latest
+          inputResources:
+            - name: go_gitRepo
