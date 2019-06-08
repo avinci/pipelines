@@ -18,48 +18,37 @@ resources:
       sourceArtifactory: art
       buildName: svc_build
       buildNumber: 1
-#
-#  - name: backend_gitRepo
-#    type: GitRepo
-#    configuration:
-#      path: avinci/swampup-java-backend-service
-#      gitProvider: avinci_pipelines
-#
-#  - name: backend_build_info
-#    type: BuildInfo
-#    configuration:
-#      sourceArtifactory: art
-#      buildName: backend_build
-#      buildNumber: 1
-#
-#  - name: backend_promoted_build_info
-#    type: BuildInfo
-#    configuration:
-#      sourceArtifactory: art
-#      buildName: backend_build
-#      buildNumber: 1
-#
-#  - name: releaseBundle
-#    type: ReleaseBundle
-#    configuration:
-#      sourceArtifactory: art
-#      name: demo
-#      version: v1.0.0
+
+  - name: backend_gitRepo
+    type: GitRepo
+    configuration:
+      path: avinci/swampup-java-backend-service
+      gitProvider: avinci_pipelines
+
+  - name: backend_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: backend_build
+      buildNumber: 1
+
+  - name: backend_promoted_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: backend_build
+      buildNumber: 1
+
+  - name: releaseBundle
+    type: ReleaseBundle
+    configuration:
+      sourceArtifactory: art
+      name: demo
+      version: v1.0.0
 
 pipelines:
   - name: demo
     steps:
-#      - name: build_go_service
-#        type: Bash
-#        configuration:
-#          integrations:
-#            - name: art
-#          inputResources:
-#            - name: go_gitRepo
-#        execution:
-#          onExecute:
-#            - printenv
-
       - name: bld_svc
         type: DockerBuild
         configuration:
@@ -103,69 +92,71 @@ pipelines:
           outputResources:
             - name: svc_promoted_build_info
 
-#      - name: bld_backend
-#        type: MvnBuild
-#        configuration:
-#          sourceLocation: .
-#          mvnCommand: deploy
-#          configFileLocation: .
-#          configFileName: mvn-art-config
-#          inputResources:
-#            - name: backend_gitRepo
-#          integrations:
-#            - name: art
-#        execution:
-#          onStart:
-#            - apt install default-jdk
-#            - pushd /tmp
-#            - wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
-#            - tar xzvf apache-maven-3.6.1-bin.tar.gz
-#            - export PATH=$PATH:/tmp/apache-maven-3.6.1/bin
-#            - export M2_HOME=/tmp/apache-maven-3.6.1/
-#            - popd
-#            - javac -version
-#            - mvn --version
-#
-#      - name: publish_backend_build
-#        type: PublishBuildInfo
-#        configuration:
-#          integrations:
-#            - name: art
-#          inputSteps:
-#            - name: bld_backend
-#          outputResources:
-#            - name: backend_build_info
-#
-#      - name: promote_backend_build
-#        type: PromoteBuild
-#        configuration:
-#          integrations:
-#            - name: art
-#          inputResources:
-#            - name: backend_build_info
-#          outputResources:
-#            - name: backend_promoted_build_info
-#
-#      - name: bundle
-#        type: CreateReleaseBundle
-#        configuration:
-#          releaseBundleName: demo
-#          releaseBundleVersion: v1.0.0
-#          dryRun: false
-#          sign: false
-#          description: "some random test description"
-#          integrations:
-#            - name: art
-#          inputResources:
-#            - name: go_promoted_build_info
-#              trigger: false
-#            - name: backend_promoted_build_info
-#              trigger: false
-#          outputResources:
-#            - name: releaseBundle
-#          releaseNotes:
-#            syntax: markdown
-#            content: |
-#              ## Heading
-#                * Bullet
-#                * Points
+      - name: bld_backend
+        type: MvnBuild
+        configuration:
+          sourceLocation: .
+          mvnCommand: deploy
+          configFileLocation: .
+          configFileName: mvn-art-config
+          inputResources:
+            - name: backend_gitRepo
+          integrations:
+            - name: art
+        execution:
+          onStart:
+            - apt install default-jdk
+            - pushd /tmp
+            - wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
+            - tar xzvf apache-maven-3.6.1-bin.tar.gz
+            - export PATH=$PATH:/tmp/apache-maven-3.6.1/bin
+            - export M2_HOME=/tmp/apache-maven-3.6.1/
+            - popd
+            - javac -version
+            - mvn --version
+
+      - name: publish_backend_build
+        type: PublishBuildInfo
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: bld_backend
+          outputResources:
+            - name: backend_build_info
+
+      - name: promote_backend_build
+        type: PromoteBuild
+        configuration:
+          integrations:
+            - name: art
+          inputResources:
+            - name: backend_build_info
+          inputSteps:
+            - name: publish_backend_build
+          outputResources:
+            - name: backend_promoted_build_info
+
+      - name: bundle
+        type: CreateReleaseBundle
+        configuration:
+          releaseBundleName: demo
+          releaseBundleVersion: v1.0.0
+          dryRun: false
+          sign: false
+          description: "some random test description"
+          integrations:
+            - name: art
+          inputResources:
+            - name: go_promoted_build_info
+              trigger: false
+            - name: backend_promoted_build_info
+              trigger: false
+          outputResources:
+            - name: releaseBundle
+          releaseNotes:
+            syntax: markdown
+            content: |
+              ## Heading
+                * Bullet
+                * Points
