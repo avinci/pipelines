@@ -46,6 +46,13 @@ resources:
       name: demo
       version: v1.0.0
 
+  - name: signedBundle
+    type: ReleaseBundle
+    configuration:
+      sourceArtifactory: art
+      name: demo
+      version: v1.0.0
+
 pipelines:
   - name: demo
     steps:
@@ -162,3 +169,13 @@ pipelines:
               ## Heading
                 * Bullet
                 * Points
+
+      - name: sign
+        type: SignReleaseBundle
+        configuration:
+          inputResources:
+            - name: releaseBundle
+          integrations:
+            - name: art
+          outputResources:
+            - name: signedBundle
