@@ -98,6 +98,8 @@ pipelines:
             - name: art
           inputResources:
             - name: svc_build_info
+          inputSteps:
+            - name: publish_svc_build
           outputResources:
             - name: svc_promoted_build_info
 
