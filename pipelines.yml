@@ -39,6 +39,26 @@ resources:
       buildName: backend_build
       buildNumber: 1
 
+  - name: frontend_gitRepo
+    type: GitRepo
+    configuration:
+      path: avinci/swampup-vue-frontend
+      gitProvider: avinci_pipelines
+
+  - name: frontend_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: frontend_build
+      buildNumber: 1
+
+  - name: frontend_promoted_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: art
+      buildName: frontend_build
+      buildNumber: 1
+
   - name: releaseBundle
     type: ReleaseBundle
     configuration:
@@ -144,6 +164,47 @@ pipelines:
           outputResources:
             - name: backend_promoted_build_info
 
+      - name: bld_frontend
+        type: NpmBuild
+        configuration:
+          sourceLocation: .
+          repositoryName: demo-local
+          inputResources:
+            - name: fontend_gitRepo
+          integrations:
+            - name: art
+
+      - name: publish_frontend
+        type: NpmPublish
+        configuration:
+          repositoryName: demo-local
+          inputSteps:
+            - name: bld_frontend
+          integrations:
+            - name: art
+
+      - name: publish_frontend_build
+        type: PublishBuildInfo
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: publish_frontend
+          outputResources:
+            - name: frontend_build_info
+
+      - name: promote_frontend_build
+        type: PromoteBuild
+        configuration:
+          integrations:
+            - name: art
+          inputResources:
+            - name: frontend_build_info
+          inputSteps:
+            - name: publish_frontend_build
+          outputResources:
+            - name: frontend_promoted_build_info
+
       - name: bundle
         type: CreateReleaseBundle
         configuration:
@@ -158,6 +219,8 @@ pipelines:
             - name: svc_promoted_build_info
               trigger: false
             - name: backend_promoted_build_info
+              trigger: false
+            - name: frontend_promoted_build_info
               trigger: false
           outputResources:
             - name: releaseBundle
