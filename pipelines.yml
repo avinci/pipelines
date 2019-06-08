@@ -175,7 +175,5 @@ pipelines:
         configuration:
           inputResources:
             - name: releaseBundle
-          integrations:
-            - name: art
           outputResources:
             - name: signedBundle
