@@ -148,7 +148,7 @@ pipelines:
           integrations:
             - name: art
           inputResources:
-            - name: go_promoted_build_info
+            - name: svc_promoted_build_info
               trigger: false
             - name: backend_promoted_build_info
               trigger: false
