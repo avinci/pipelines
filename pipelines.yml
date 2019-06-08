@@ -32,7 +32,7 @@ pipelines:
             - name: art
 
       - name: push_go_svc
-        type: Push
+        type: PushArtifactoryPackage
         configuration:
           targetRepo: docker
           integrations:
