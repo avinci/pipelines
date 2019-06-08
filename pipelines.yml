@@ -6,7 +6,7 @@ resources:
       gitProvider: avinci_pipelines
 
 pipelines:
-  - name: app
+  - name: demo
     steps:
       - name: build_go_service
         type: Bash
