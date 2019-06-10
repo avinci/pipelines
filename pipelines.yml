@@ -170,6 +170,8 @@ pipelines:
           environmentVariables:
             dockerImageName: 34.66.110.173:8081/docker-local/demo/app
             dockerImageTag: ${runNumber}
+          inputResources:
+            - name: backend_gitRepo
           inputSteps:
             - name: bld_backend
             - name: publish_frontend
@@ -177,6 +179,7 @@ pipelines:
             - name: art
         execution:
           onStart:
+            - pushd $res_backend_gitRepo_resourcePath
             - echo $int_art_url
             - add_run_variable buildStepName=${step_name}
             - add_run_variable ${step_name}_payloadType="docker"
@@ -185,6 +188,7 @@ pipelines:
             - add_run_variable ${step_name}_isPromoted=false
             - add_run_variable ${step_name}_dockerImageName=${dockerImageName}
             - add_run_variable ${step_name}_dockerImageTag=${dockerImageTag}
+            - docker build -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_art_url} .
 
   - name: demo
     steps:
