@@ -158,7 +158,7 @@ pipelines:
       - name: publish_frontend
         type: NpmPublish
         configuration:
-          repositoryName: demo
+          repositoryName: npm-libs-local
           inputSteps:
             - name: bld_frontend
           integrations:
