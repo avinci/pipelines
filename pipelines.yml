@@ -200,6 +200,7 @@ pipelines:
         type: PromoteBuild
         configuration:
           nodePool: ankul_u16_nodes
+          targetRepo: demo
           integrations:
             - name: art
           inputResources:
