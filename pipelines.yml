@@ -206,8 +206,6 @@ pipelines:
             - name: art
           inputSteps:
             - name: publish_frontend
-            - name: build_app
-              trigger: false
           outputResources:
             - name: frontend_build_info
 
@@ -241,9 +239,8 @@ pipelines:
 #              trigger: false
 #            - name: frontend_promoted_build_info
 #              trigger: false
-#          inputSteps:
-#            - name: build_app
-#              trigger: false
+          inputSteps:
+            - name: build_app
           outputResources:
             - name: releaseBundle
           releaseNotes:
