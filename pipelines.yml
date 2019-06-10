@@ -170,6 +170,7 @@ pipelines:
             - pushd $res_backend_gitRepo_resourcePath
             - echo $int_art_url
             - echo $run_Number
+            - add_run_variable buildStepName=${step_name}
             - add_run_variable ${step_name}_buildNumber=${run_number}
             - add_run_variable ${step_name}_buildName=${pipeline_name}
             - docker build -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_art_url} .
