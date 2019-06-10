@@ -132,6 +132,7 @@ pipelines:
             - name: art
         execution:
           onStart:
+            - apt-get update
             - apt install default-jdk
             - pushd /tmp
             - wget http://mirrors.estointernet.in/apache/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
