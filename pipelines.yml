@@ -156,6 +156,7 @@ pipelines:
       - name: promote_backend_build
         type: PromoteBuild
         configuration:
+          targetRepo: drydock
           integrations:
             - name: art
           inputResources:
