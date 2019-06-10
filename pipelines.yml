@@ -169,6 +169,7 @@ pipelines:
         configuration:
           environmentVariables:
             dockerImageName: 34.66.110.173:8081/docker-local/demo/app
+            dockerImageTag: ${run_number}
           inputResources:
             - name: backend_gitRepo
           inputSteps:
@@ -180,12 +181,12 @@ pipelines:
           onStart:
             - pushd $res_backend_gitRepo_resourcePath
             - echo $int_art_url
-            - echo $runNumber
-            - add_run_variable ${step_name}_buildNumber=${runNumber}
-            - add_run_variable ${step_name}_buildName=${pipelineName}
-            - docker build -t $dockerImageName:$runNumber --build-arg REGISTRY=${int_art_url} .
-            - jfrog rt bce $pipelineName $runNumber
-            - jfrog rt docker-push $dockerImageName:$runNumber docker-local --build-name=$pipelineName --build-number=$runNumber
+            - echo $run_Number
+            - add_run_variable ${step_name}_buildNumber=${run_number}
+            - add_run_variable ${step_name}_buildName=${pipeline_name}
+            - docker build -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_art_url} .
+            - jfrog rt bce $pipeline_name $run_number
+            - jfrog rt docker-push $dockerImageName:$dockerImageTag docker-local --build-name=$pipeline_name --build-number=$run_number
             - save_run_state /tmp/jfrog/. jfrog
 
       - name: publish_app_build
