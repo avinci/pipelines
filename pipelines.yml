@@ -216,8 +216,8 @@ pipelines:
           inputResources:
             - name: svc_promoted_build_info
               trigger: false
-            - name: app_promoted_build_info
-              trigger: false
+#            - name: app_promoted_build_info
+#              trigger: false
           outputResources:
             - name: releaseBundle
           releaseNotes:
