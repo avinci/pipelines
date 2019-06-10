@@ -212,7 +212,7 @@ pipelines:
           sign: false
           description: "some random test description"
           integrations:
-            - name: art
+            - name: kermit_art
           inputResources:
             - name: svc_promoted_build_info
               trigger: false
@@ -233,6 +233,6 @@ pipelines:
           inputResources:
             - name: releaseBundle
           integrations:
-            - name: art
+            - name: kermit_art
           outputResources:
             - name: signedBundle
