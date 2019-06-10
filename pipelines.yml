@@ -96,6 +96,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
+          targetRepo: demo
           integrations:
             - name: art
           inputResources:
@@ -199,7 +200,7 @@ pipelines:
           outputResources:
             - name: app_promoted_build_info
 
-  - name: demo
+  - name: demo_release
     steps:
       - name: bundle
         type: CreateReleaseBundle
