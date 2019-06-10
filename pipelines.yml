@@ -169,7 +169,7 @@ pipelines:
         configuration:
           nodePool: ankul_u16_nodes
           sourceLocation: .
-          repositoryName: demo-local
+          repositoryName: ankul_local_repo
           inputResources:
             - name: frontend_gitRepo
           integrations:
