@@ -188,28 +188,28 @@ pipelines:
             - jfrog rt docker-push $dockerImageName:$dockerImageTag docker-local --build-name=$pipelineName --build-number=$runNumber
             - save_run_state /tmp/jfrog/. jfrog
 
-        - name: publish_app_build
-          type: PublishBuildInfo
-          configuration:
-            integrations:
-              - name: art
-            inputSteps:
-              - name: build_app
-            outputResources:
-              - name: app_build_info
+      - name: publish_app_build
+        type: PublishBuildInfo
+        configuration:
+          integrations:
+            - name: art
+          inputSteps:
+            - name: build_app
+          outputResources:
+            - name: app_build_info
 
-        - name: promote_app_build
-          type: PromoteBuild
-          configuration:
-            targetRepo: demo
-            integrations:
-              - name: art
-            inputResources:
-              - name: app_build_info
-            inputSteps:
-              - name: publish_app_build
-            outputResources:
-              - name: app_promoted_build_info
+      - name: promote_app_build
+        type: PromoteBuild
+        configuration:
+          targetRepo: demo
+          integrations:
+            - name: art
+          inputResources:
+            - name: app_build_info
+          inputSteps:
+            - name: publish_app_build
+          outputResources:
+            - name: app_promoted_build_info
 
   - name: demo
     steps:
