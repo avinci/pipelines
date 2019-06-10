@@ -74,7 +74,7 @@ resources:
       version: v1.0.0
 
 pipelines:
-  - name: demo
+  - name: demo_service
     steps:
       - name: bld_svc
         type: DockerBuild
@@ -119,6 +119,8 @@ pipelines:
           outputResources:
             - name: svc_promoted_build_info
 
+  - name: demo_app
+    steps:
       - name: bld_backend
         type: MvnBuild
         configuration:
@@ -143,43 +145,6 @@ pipelines:
             - javac -version
             - mvn --version
 
-      - name: publish_backend_build
-        type: PublishBuildInfo
-        configuration:
-          integrations:
-            - name: art
-          inputSteps:
-            - name: bld_backend
-          outputResources:
-            - name: backend_build_info
-
-      - name: build_app
-        type: Bash
-        configuration:
-          environmentVariables:
-            foo: bar
-          inputSteps:
-            - name: bld_backend
-            - name: publish_frontend
-          integrations:
-            - name: art
-        execution:
-          onStart:
-            - echo $int_art_url
-
-#      - name: promote_backend_build
-#        type: PromoteBuild
-#        configuration:
-#          targetRepo: drydock
-#          integrations:
-#            - name: art
-#          inputResources:
-#            - name: backend_build_info
-#          inputSteps:
-#            - name: publish_backend_build
-#          outputResources:
-#            - name: backend_promoted_build_info
-
       - name: bld_frontend
         type: NpmBuild
         configuration:
@@ -199,15 +164,56 @@ pipelines:
           integrations:
             - name: art
 
-      - name: publish_frontend_build
-        type: PublishBuildInfo
+      - name: build_app
+        type: Bash
         configuration:
+          environmentVariables:
+            dockerImageName: 34.66.110.173:8081/docker-local/demo/app
+            dockerImageTag: ${runNumber}
+          inputSteps:
+            - name: bld_backend
+            - name: publish_frontend
           integrations:
             - name: art
-          inputSteps:
-            - name: publish_frontend
-          outputResources:
-            - name: frontend_build_info
+        execution:
+          onStart:
+            - echo $int_art_url
+            - add_run_variable buildStepName=${step_name}
+            - add_run_variable ${step_name}_payloadType="docker"
+            - add_run_variable ${step_name}_buildNumber=${runNumber}
+            - add_run_variable ${step_name}_buildName=${pipelineName}
+            - add_run_variable ${step_name}_isPromoted=false
+            - add_run_variable ${step_name}_dockerImageName=${dockerImageName}
+            - add_run_variable ${step_name}_dockerImageTag=${dockerImageTag}
+
+  - name: demo
+    steps:
+#      - name: publish_backend_build
+#        type: PublishBuildInfo
+#        configuration:
+#          integrations:
+#            - name: art
+#          inputSteps:
+#            - name: bld_backend
+#          outputResources:
+#            - name: backend_build_info
+
+
+#      - name: promote_backend_build
+#        type: PromoteBuild
+#        configuration:
+#          targetRepo: drydock
+#          integrations:
+#            - name: art
+#          inputResources:
+#            - name: backend_build_info
+#          inputSteps:
+#            - name: publish_backend_build
+#          outputResources:
+#            - name: backend_promoted_build_info
+
+
+
 
 #      - name: promote_frontend_build
 #        type: PromoteBuild
@@ -239,8 +245,8 @@ pipelines:
 #              trigger: false
 #            - name: frontend_promoted_build_info
 #              trigger: false
-          inputSteps:
-            - name: build_app
+#          inputSteps:
+#            - name: build_app
           outputResources:
             - name: releaseBundle
           releaseNotes:
