@@ -167,6 +167,7 @@ pipelines:
       - name: bld_frontend
         type: NpmBuild
         configuration:
+          nodePool: ankul_u16_nodes
           sourceLocation: .
           repositoryName: demo-local
           inputResources:
@@ -177,7 +178,8 @@ pipelines:
       - name: publish_frontend
         type: NpmPublish
         configuration:
-          repositoryName: demo-local
+          nodePool: ankul_u16_nodes
+          repositoryName: demo
           inputSteps:
             - name: bld_frontend
           integrations:
@@ -186,6 +188,7 @@ pipelines:
       - name: publish_frontend_build
         type: PublishBuildInfo
         configuration:
+          nodePool: ankul_u16_nodes
           integrations:
             - name: art
           inputSteps:
@@ -196,6 +199,7 @@ pipelines:
       - name: promote_frontend_build
         type: PromoteBuild
         configuration:
+          nodePool: ankul_u16_nodes
           integrations:
             - name: art
           inputResources:
