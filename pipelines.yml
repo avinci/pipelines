@@ -169,7 +169,7 @@ pipelines:
         configuration:
           nodePool: ankul_u16_nodes
           sourceLocation: .
-          repositoryName: ankul_local_repo
+          repositoryName: npm-dev-virtual
           inputResources:
             - name: frontend_gitRepo
           integrations:
