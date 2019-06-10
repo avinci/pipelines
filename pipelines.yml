@@ -200,6 +200,8 @@ pipelines:
             - name: art
           inputResources:
             - name: frontend_build_info
+          inputSteps:
+            - name: publish_frontend_build
           outputResources:
             - name: frontend_promoted_build_info
 
