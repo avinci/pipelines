@@ -45,20 +45,6 @@ resources:
       path: avinci/swampup-vue-frontend
       gitProvider: avinci_pipelines
 
-  - name: frontend_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: art
-      buildName: frontend_build
-      buildNumber: 1
-
-  - name: frontend_promoted_build_info
-    type: BuildInfo
-    configuration:
-      sourceArtifactory: art
-      buildName: frontend_build
-      buildNumber: 1
-
   - name: releaseBundle
     type: ReleaseBundle
     configuration:
@@ -215,19 +201,6 @@ pipelines:
 
   - name: demo
     steps:
-#      - name: promote_frontend_build
-#        type: PromoteBuild
-#        configuration:
-#          targetRepo: drydock
-#          integrations:
-#            - name: art
-#          inputResources:
-#            - name: frontend_build_info
-#          inputSteps:
-#            - name: publish_frontend_build
-#          outputResources:
-#            - name: frontend_promoted_build_info
-
       - name: bundle
         type: CreateReleaseBundle
         configuration:
