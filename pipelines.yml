@@ -79,6 +79,7 @@ pipelines:
       - name: bld_svc
         type: DockerBuild
         configuration:
+          nodePool: ankul_u16_nodes
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: 34.66.110.173:8081/docker-local/gosvc
@@ -91,6 +92,7 @@ pipelines:
       - name: push_svc
         type: PushArtifactoryPackage
         configuration:
+          nodePool: ankul_u16_nodes
           targetRepo: docker-local
           integrations:
             - name: art
@@ -100,6 +102,7 @@ pipelines:
       - name: publish_svc_build
         type: PublishBuildInfo
         configuration:
+          nodePool: ankul_u16_nodes
           integrations:
             - name: art
           inputSteps:
@@ -110,6 +113,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
+          nodePool: ankul_u16_nodes
           integrations:
             - name: art
           inputResources:
@@ -122,6 +126,7 @@ pipelines:
       - name: bld_backend
         type: MvnBuild
         configuration:
+          nodePool: ankul_u16_nodes
           sourceLocation: .
           mvnCommand: deploy
           configFileLocation: .
@@ -146,6 +151,7 @@ pipelines:
       - name: publish_backend_build
         type: PublishBuildInfo
         configuration:
+          nodePool: ankul_u16_nodes
           integrations:
             - name: art
           inputSteps:
@@ -156,6 +162,7 @@ pipelines:
       - name: promote_backend_build
         type: PromoteBuild
         configuration:
+          nodePool: ankul_u16_nodes
           integrations:
             - name: art
           inputResources:
