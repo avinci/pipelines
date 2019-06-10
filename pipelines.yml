@@ -153,18 +153,32 @@ pipelines:
           outputResources:
             - name: backend_build_info
 
-      - name: promote_backend_build
-        type: PromoteBuild
+      - name: build_app
+        type: Bash
         configuration:
-          targetRepo: drydock
+          environmentVariables:
+            foo: bar
+          inputSteps:
+            - name: bld_backend
+            - name: publish_frontend
           integrations:
             - name: art
-          inputResources:
-            - name: backend_build_info
-          inputSteps:
-            - name: publish_backend_build
-          outputResources:
-            - name: backend_promoted_build_info
+        execution:
+          onStart:
+            - echo $int_art_url
+
+#      - name: promote_backend_build
+#        type: PromoteBuild
+#        configuration:
+#          targetRepo: drydock
+#          integrations:
+#            - name: art
+#          inputResources:
+#            - name: backend_build_info
+#          inputSteps:
+#            - name: publish_backend_build
+#          outputResources:
+#            - name: backend_promoted_build_info
 
       - name: bld_frontend
         type: NpmBuild
@@ -195,18 +209,18 @@ pipelines:
           outputResources:
             - name: frontend_build_info
 
-      - name: promote_frontend_build
-        type: PromoteBuild
-        configuration:
-          targetRepo: drydock
-          integrations:
-            - name: art
-          inputResources:
-            - name: frontend_build_info
-          inputSteps:
-            - name: publish_frontend_build
-          outputResources:
-            - name: frontend_promoted_build_info
+#      - name: promote_frontend_build
+#        type: PromoteBuild
+#        configuration:
+#          targetRepo: drydock
+#          integrations:
+#            - name: art
+#          inputResources:
+#            - name: frontend_build_info
+#          inputSteps:
+#            - name: publish_frontend_build
+#          outputResources:
+#            - name: frontend_promoted_build_info
 
       - name: bundle
         type: CreateReleaseBundle
