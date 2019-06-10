@@ -195,8 +195,6 @@ pipelines:
             - name: art
           inputResources:
             - name: app_build_info
-          inputSteps:
-            - name: publish_app_build
           outputResources:
             - name: app_promoted_build_info
 
