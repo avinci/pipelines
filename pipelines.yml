@@ -200,7 +200,7 @@ pipelines:
         type: PromoteBuild
         configuration:
           nodePool: ankul_u16_nodes
-          targetRepo: demo
+          targetRepo: drydock
           integrations:
             - name: art
           inputResources:
