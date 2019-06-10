@@ -123,7 +123,7 @@ pipelines:
         type: MvnBuild
         configuration:
           sourceLocation: .
-          mvnCommand: deploy
+          mvnCommand: clean install
           configFileLocation: .
           configFileName: mvn-art-config
           inputResources:
