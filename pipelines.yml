@@ -127,7 +127,7 @@ pipelines:
         type: MvnBuild
         configuration:
           sourceLocation: .
-          mvnCommand: clean install
+          mvnCommand: clean install -ntp
           configFileLocation: .
           configFileName: mvn-art-config
           inputResources:
@@ -150,6 +150,7 @@ pipelines:
       - name: bld_frontend
         type: NpmBuild
         configuration:
+          npmArgs: --no-progress --no-audit
           sourceLocation: .
           repositoryName: npm-dev-virtual
           inputResources:
