@@ -193,6 +193,7 @@ pipelines:
             dockerImageTag: ${run_number}
           inputResources:
             - name: backend_gitRepo
+              trigger: false
           inputSteps:
             - name: bld_backend
             - name: publish_frontend
