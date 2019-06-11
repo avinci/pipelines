@@ -220,7 +220,7 @@ pipelines:
         type: CreateReleaseBundle
         configuration:
           releaseBundleName: demo
-          releaseBundleVersion: v1.0.0
+          releaseBundleVersion: v1.0.$run_number
           dryRun: false
           sign: false
           description: "some random test description"
