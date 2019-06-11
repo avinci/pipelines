@@ -267,7 +267,7 @@ pipelines:
           inputResources:
             - name: releaseBundle
           integrations:
-            - name: kermit_art
+            - name: art
           outputResources:
             - name: signedBundle
 
@@ -279,7 +279,7 @@ pipelines:
             - name: signedBundle
             - name: distributionRules
           integrations:
-            - name: kermit_art
+            - name: art
 
       - name: deploy
         type: Bash
