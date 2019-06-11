@@ -175,13 +175,14 @@ pipelines:
       - name: publish_frontend
         type: NpmPublish
         configuration:
-          environmentVariables:
-            inputNpmBuildStepName: bld_frontend
           repositoryName: npm-libs-local
           inputSteps:
             - name: pack_frontend
           integrations:
             - name: art
+        execution:
+          onStart:
+            - export inputNpmBuildStepName="bld_frontend"
 
       - name: build_app
         type: Bash
