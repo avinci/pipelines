@@ -279,7 +279,7 @@ pipelines:
             - name: signedBundle
             - name: distributionRules
           integrations:
-            - name: art
+            - name: kermit_art
 
       - name: deploy
         type: Bash
