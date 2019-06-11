@@ -246,6 +246,7 @@ pipelines:
       - name: distribute
         type: DistributeReleaseBundle
         configuration:
+          dryRun: false
           inputResources:
             - name: signedBundle
             - name: distributionRules
