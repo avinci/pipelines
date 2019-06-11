@@ -181,6 +181,7 @@ pipelines:
             - name: art
         execution:
           onStart:
+            - rm -rf $run_dir/workspace/jfrog
             - retry_command jfrog rt config --url $int_art_url --user $int_art_user --apikey $int_art_apikey --interactive=false
             - pushd $res_backend_gitRepo_resourcePath
             - echo $int_art_url
