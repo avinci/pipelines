@@ -157,12 +157,27 @@ pipelines:
           integrations:
             - name: art
 
+      - name: pack_frontend
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: bld_frontend
+          integrations:
+            - name: art
+        execution:
+          onStart:
+            - local tempStateLocation="$step_tmp_dir/npmSourceState"
+            - restore_run_state npmBuildInputGitRepo $tempStateLocation
+            - pushd $tempStateLocation
+            - npm run build
+            - save_run_state $tempStateLocation/. npmBuildInputGitRepo
+
       - name: publish_frontend
         type: NpmPublish
         configuration:
           repositoryName: npm-libs-local
           inputSteps:
-            - name: bld_frontend
+            - name: pack_frontend
           integrations:
             - name: art
 
