@@ -59,6 +59,16 @@ resources:
       name: demo
       version: v1.0.0
 
+  - name: distributionRules
+    type: DistributionRule
+    configuration:
+      sourceArtifactory: art
+      serviceName: "*"
+      siteName: "*"
+      cityName: "*"
+      countryCodes:
+        - "*"
+
 pipelines:
   - name: demo_service
     steps:
@@ -232,3 +242,12 @@ pipelines:
             - name: kermit_art
           outputResources:
             - name: signedBundle
+
+      - name: distribute
+        type: DistributeReleaseBundle
+        configuration:
+          inputResources:
+            - name: signedBundle
+            - name: distributionRules
+          integrations:
+            - name: kermit_art
