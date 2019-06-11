@@ -166,7 +166,7 @@ pipelines:
             - name: art
         execution:
           onStart:
-            - local tempStateLocation="$step_tmp_dir/npmSourceState"
+            - export tempStateLocation="$step_tmp_dir/npmSourceState"
             - restore_run_state npmBuildInputGitRepo $tempStateLocation
             - pushd $tempStateLocation
             - npm run build
