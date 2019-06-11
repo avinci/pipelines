@@ -85,7 +85,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: 34.66.110.173:8081/docker-local/gosvc
-          dockerImageTag: latest
+          dockerImageTag: $run_number
           inputResources:
             - name: go_gitRepo
           integrations:
