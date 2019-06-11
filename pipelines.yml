@@ -69,6 +69,13 @@ resources:
       countryCodes:
         - "*"
 
+  - name: deploy_vm
+    type: VmCluster
+    configuration:
+      sshKey: deploy_ssh
+      targets:
+        - 35.236.12.2
+
 pipelines:
   - name: demo_service
     steps:
@@ -252,3 +259,22 @@ pipelines:
             - name: distributionRules
           integrations:
             - name: kermit_art
+
+      - name: deploy
+        type: Bash
+        configuration:
+          environmentVariables:
+            docker_repository: demo
+          integrations:
+            - name: edge_art
+          inputResources:
+            - name: deploy_vm
+            - name: svc_promoted_build_info
+              trigger: false
+            - name: app_promoted_build_info
+              trigger: false
+          inputSteps:
+            - name: distribute
+        execution:
+          onExecute:
+            - ssh -i ~/.ssh/deploy_vm ubuntu@${res_deploy_vm_targets_0} ./deploy.sh $int_edge_art_url $docker_repository $int_edge_art_apikey $res_app_promoted_build_info_buildNumber $res_svc_promoted_build_info_buildNumber
