@@ -85,7 +85,7 @@ pipelines:
           dockerFileLocation: .
           dockerFileName: Dockerfile
           dockerImageName: 34.66.110.173:8081/docker-local/gosvc
-          dockerImageTag: latest
+          dockerImageTag: $run_number
           inputResources:
             - name: go_gitRepo
           integrations:
@@ -277,4 +277,4 @@ pipelines:
             - name: distribute
         execution:
           onExecute:
-            - ssh -i ~/.ssh/deploy_vm ubuntu@${res_deploy_vm_targets_0} ./deploy.sh $int_edge_art_url $docker_repository $int_edge_art_apikey $res_app_promoted_build_info_buildNumber $res_svc_promoted_build_info_buildNumber
+            - ssh -i ~/.ssh/deploy_vm avic@${res_deploy_vm_targets_0} ./deploy.sh $int_edge_art_url $docker_repository $int_edge_art_apikey $res_app_promoted_build_info_buildNumber $res_svc_promoted_build_info_buildNumber
