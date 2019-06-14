@@ -94,7 +94,7 @@ pipelines:
       - name: push_svc
         type: DockerPush
         configuration:
-          targetRepo: docker-local
+          targetRepository: docker-local
           integrations:
             - name: art
           inputSteps:
@@ -225,7 +225,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepo: demo
+          targetRepository: demo
           integrations:
             - name: art
           inputResources:
