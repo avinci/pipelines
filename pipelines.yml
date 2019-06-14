@@ -92,7 +92,7 @@ pipelines:
             - name: art
 
       - name: push_svc
-        type: PushArtifactoryPackage
+        type: DockerPush
         configuration:
           targetRepo: docker-local
           integrations:
@@ -103,8 +103,6 @@ pipelines:
       - name: publish_svc_build
         type: PublishBuildInfo
         configuration:
-          integrations:
-            - name: art
           inputSteps:
             - name: push_svc
           outputResources:
@@ -113,7 +111,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepo: demo
+          targetRepository: demo
           integrations:
             - name: art
           inputResources:
