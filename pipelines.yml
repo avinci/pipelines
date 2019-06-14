@@ -74,7 +74,7 @@ resources:
     configuration:
       sshKey: deploy_ssh
       targets:
-        - 35.236.12.2
+        - 206.189.209.158
 
 pipelines:
   - name: demo_service
