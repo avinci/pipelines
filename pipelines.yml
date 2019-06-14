@@ -49,14 +49,14 @@ resources:
     type: ReleaseBundle
     configuration:
       sourceArtifactory: kermit_art
-      name: demo
+      name: suTest
       version: v1.0.0
 
   - name: signedBundle
     type: ReleaseBundle
     configuration:
       sourceArtifactory: kermit_art
-      name: demo
+      name: suTest
       version: v1.0.0
 
   - name: distributionRules
@@ -111,7 +111,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepository: demo
+          targetRepository: suTest
           integrations:
             - name: art
           inputResources:
@@ -223,7 +223,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: demo
+          targetRepository: suTest
           integrations:
             - name: art
           inputResources:
@@ -236,7 +236,7 @@ pipelines:
       - name: bundle
         type: CreateReleaseBundle
         configuration:
-          releaseBundleName: demo
+          releaseBundleName: suTest
           releaseBundleVersion: v1.0.$run_number
           dryRun: false
           sign: false
@@ -275,7 +275,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            docker_repository: demo
+            docker_repository: suTest
             artifactory_address: 34.66.110.173:8082
           integrations:
             - name: edge_art
