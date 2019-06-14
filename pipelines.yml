@@ -55,7 +55,7 @@ resources:
   - name: signedBundle
     type: ReleaseBundle
     configuration:
-      sourceArtifactory: art
+      sourceArtifactory: kermit_art
       name: demo
       version: v1.0.0
 
@@ -215,8 +215,6 @@ pipelines:
       - name: publish_app_build
         type: PublishBuildInfo
         configuration:
-          integrations:
-            - name: art
           inputSteps:
             - name: build_app
           outputResources:
@@ -243,8 +241,6 @@ pipelines:
           dryRun: false
           sign: false
           description: "some random test description"
-          integrations:
-            - name: kermit_art
           inputResources:
             - name: svc_promoted_build_info
               trigger: false
@@ -264,8 +260,6 @@ pipelines:
         configuration:
           inputResources:
             - name: releaseBundle
-          integrations:
-            - name: art
           outputResources:
             - name: signedBundle
 
@@ -276,8 +270,6 @@ pipelines:
           inputResources:
             - name: signedBundle
             - name: distributionRules
-          integrations:
-            - name: kermit_art
 
       - name: deploy
         type: Bash
