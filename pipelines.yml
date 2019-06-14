@@ -48,7 +48,7 @@ resources:
   - name: releaseBundle
     type: ReleaseBundle
     configuration:
-      sourceArtifactory: art
+      sourceArtifactory: kermit_art
       name: demo
       version: v1.0.0
 
