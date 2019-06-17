@@ -275,7 +275,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            docker_repository: suTest
+            docker_repository: suTest1
             artifactory_address: 34.66.110.173:8082
           integrations:
             - name: edge_art
