@@ -275,7 +275,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            docker_repository: swampUp
+            docker_repository: swampup
             artifactory_address: 34.66.110.173:8082
           integrations:
             - name: edge_art
