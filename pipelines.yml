@@ -49,14 +49,14 @@ resources:
     type: ReleaseBundle
     configuration:
       sourceArtifactory: kermit_art
-      name: suTest1
+      name: swampUp
       version: v1.0.0
 
   - name: signedBundle
     type: ReleaseBundle
     configuration:
       sourceArtifactory: kermit_art
-      name: suTest1
+      name: swampUp
       version: v1.0.0
 
   - name: distributionRules
@@ -111,7 +111,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepository: suTest1
+          targetRepository: swampUp
           integrations:
             - name: art
           inputResources:
@@ -223,7 +223,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: suTest1
+          targetRepository: swampUp
           integrations:
             - name: art
           inputResources:
@@ -236,7 +236,7 @@ pipelines:
       - name: bundle
         type: CreateReleaseBundle
         configuration:
-          releaseBundleName: suTest1
+          releaseBundleName: swampUp
           releaseBundleVersion: v1.0.$run_number
           dryRun: false
           sign: false
@@ -275,7 +275,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            docker_repository: suTest1
+            docker_repository: swampUp
             artifactory_address: 34.66.110.173:8082
           integrations:
             - name: edge_art
