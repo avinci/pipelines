@@ -48,14 +48,14 @@ resources:
   - name: releaseBundle
     type: ReleaseBundle
     configuration:
-      sourceArtifactory: kermit_art
+      sourceArtifactory: art
       name: swampup
       version: v1.0.0
 
   - name: signedBundle
     type: ReleaseBundle
     configuration:
-      sourceArtifactory: kermit_art
+      sourceArtifactory: art
       name: swampup
       version: v1.0.0
 
