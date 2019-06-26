@@ -307,3 +307,23 @@ pipelines:
         execution:
           onExecute:
             - ssh -i ~/.ssh/deploy_vm root@${res_deploy_vm_targets_0} sudo /root/deploy-to-prod-test.sh $artifactory_address $docker_repository $int_edge_art_apikey $res_app_promoted_build_info_buildNumber $res_svc_promoted_build_info_buildNumber
+
+      - name: deploy2
+        type: Bash
+        configuration:
+          environmentVariables:
+            docker_repository: swampup
+            artifactory_address: 34.66.107.45:8082
+          integrations:
+            - name: edge_art
+          inputResources:
+            - name: deploy_vm
+            - name: svc_promoted_build_info
+              trigger: false
+            - name: app_promoted_build_info
+              trigger: false
+          inputSteps:
+            - name: distribute
+        execution:
+          onExecute:
+            - ssh -i ~/.ssh/deploy_vm root@${res_deploy_vm_targets_0} sudo /root/deploy-to-prod-test.sh $artifactory_address $docker_repository $int_edge_art_apikey $res_app_promoted_build_info_buildNumber $res_svc_promoted_build_info_buildNumber
