@@ -78,6 +78,20 @@ resources:
         - 206.189.209.158
 
 pipelines:
+  - name: demo_bank
+    steps:
+      - name: bld_svc
+        type: DockerBuild
+        configuration:
+          dockerFileLocation: .
+          dockerFileName: Dockerfile
+          dockerImageName: 34.66.107.45:8081/docker-local/gomicrosvc
+          dockerImageTag: $run_number
+          inputResources:
+            - name: go_gitRepo
+          integrations:
+            - name: art
+
   - name: demo_service
     steps:
       - name: bld_svc
