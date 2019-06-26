@@ -146,6 +146,7 @@ pipelines:
             - javac -version
             - mvn --version
 
+
       - name: bld_frontend
         type: NpmBuild
         configuration:
