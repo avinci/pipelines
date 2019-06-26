@@ -67,7 +67,8 @@ resources:
       siteName: "*"
       cityName: "*"
       countryCodes:
-        - "*"
+        - "CN"
+        - "EU"
 
   - name: deploy_vm
     type: VmCluster
