@@ -48,27 +48,27 @@ resources:
   - name: releaseBundle
     type: ReleaseBundle
     configuration:
-      sourceArtifactory: art
+      sourceDistribution: dist
       name: swampup
       version: v1.0.0
 
   - name: signedBundle
     type: ReleaseBundle
     configuration:
-      sourceArtifactory: art
+      sourceDistribution: dist
       name: swampup
       version: v1.0.0
 
   - name: distributionRules
     type: DistributionRule
     configuration:
-      sourceArtifactory: art
+      sourceDistribution: dist
       serviceName: "*"
       siteName: "*"
       cityName: "*"
       countryCodes:
         - "CN"
-        - "EU"
+        - "GB"
 
   - name: deploy_vm
     type: VmCluster
