@@ -28,14 +28,14 @@ resources:
   - name: app_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: art
+      sourceArtifactory: demo_art
       buildName: backend_build
       buildNumber: 1
 
   - name: app_promoted_build_info
     type: BuildInfo
     configuration:
-      sourceArtifactory: art
+      sourceArtifactory: demo_art
       buildName: backend_build
       buildNumber: 1
 
@@ -48,21 +48,21 @@ resources:
   - name: releaseBundle
     type: ReleaseBundle
     configuration:
-      sourceDistribution: dist
+      sourceDistribution: test_distribution
       name: swampup
       version: v1.0.0
 
   - name: signedBundle
     type: ReleaseBundle
     configuration:
-      sourceDistribution: dist
+      sourceDistribution: test_distribution
       name: swampup
       version: v1.0.0
 
   - name: distributionRules
     type: DistributionRule
     configuration:
-      sourceDistribution: dist
+      sourceDistribution: test_distribution
       serviceName: "*"
       siteName: "*"
       cityName: "*"
@@ -90,14 +90,14 @@ pipelines:
           inputResources:
             - name: go_gitRepo
           integrations:
-            - name: art
+            - name: demo_art
 
       - name: push_svc
         type: DockerPush
         configuration:
           targetRepository: docker-local
           integrations:
-            - name: art
+            - name: demo_art
           inputSteps:
             - name: bld_svc
 
@@ -114,7 +114,7 @@ pipelines:
         configuration:
           targetRepository: swampup
           integrations:
-            - name: art
+            - name: demo_art
           inputResources:
             - name: svc_build_info
           outputResources:
@@ -132,7 +132,7 @@ pipelines:
           inputResources:
             - name: backend_gitRepo
           integrations:
-            - name: art
+            - name: demo_art
         execution:
           onStart:
             - apt-get update
@@ -156,7 +156,7 @@ pipelines:
           inputResources:
             - name: frontend_gitRepo
           integrations:
-            - name: art
+            - name: demo_art
 
       - name: pack_frontend
         type: Bash
@@ -164,7 +164,7 @@ pipelines:
           inputSteps:
             - name: bld_frontend
           integrations:
-            - name: art
+            - name: demo_art
         execution:
           onStart:
             - export tempStateLocation="$step_tmp_dir/npmSourceState"
@@ -180,7 +180,7 @@ pipelines:
           inputSteps:
             - name: pack_frontend
           integrations:
-            - name: art
+            - name: demo_art
         execution:
           onStart:
             - export inputNpmBuildStepName="bld_frontend"
@@ -199,7 +199,7 @@ pipelines:
             - name: bld_backend
             - name: publish_frontend
           integrations:
-            - name: art
+            - name: demo_art
         execution:
           onStart:
             - rm -rf $run_dir/workspace/jfrog
@@ -228,7 +228,7 @@ pipelines:
         configuration:
           targetRepository: swampup
           integrations:
-            - name: art
+            - name: demo_art
           inputResources:
             - name: app_build_info
           outputResources:
