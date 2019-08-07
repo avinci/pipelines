@@ -87,7 +87,7 @@ pipelines:
           dockerFileName: Dockerfile
           dockerImageName: 34.66.107.45:8081/docker-local/gomicrosvc
           dockerImageTag: $run_number
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           inputResources:
             - name: go_gitRepo
           integrations:
@@ -97,7 +97,7 @@ pipelines:
         type: DockerPush
         configuration:
           targetRepository: docker-local
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           integrations:
             - name: demo_art
           inputSteps:
@@ -106,7 +106,7 @@ pipelines:
       - name: publish_svc_build
         type: PublishBuildInfo
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           inputSteps:
             - name: push_svc
           outputResources:
@@ -128,7 +128,7 @@ pipelines:
       - name: bld_backend
         type: MvnBuild
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           sourceLocation: .
           mvnCommand: clean install -ntp
           configFileLocation: .
@@ -154,7 +154,7 @@ pipelines:
       - name: bld_frontend
         type: NpmBuild
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           npmArgs: --no-progress --no-audit
           sourceLocation: .
           repositoryName: npm-dev-virtual
@@ -166,7 +166,7 @@ pipelines:
       - name: pack_frontend
         type: Bash
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           inputSteps:
             - name: bld_frontend
           integrations:
@@ -182,7 +182,7 @@ pipelines:
       - name: publish_frontend
         type: NpmPublish
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           repositoryName: npm-libs-local
           inputSteps:
             - name: pack_frontend
@@ -195,7 +195,7 @@ pipelines:
       - name: build_app
         type: Bash
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           environmentVariables:
             dockerImageName: 34.66.107.45:8081/docker-local/app
             dockerImageTag: ${run_number}
@@ -226,7 +226,7 @@ pipelines:
       - name: publish_app_build
         type: PublishBuildInfo
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           inputSteps:
             - name: build_app
           outputResources:
@@ -235,7 +235,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           targetRepository: swampup
           integrations:
             - name: demo_art
@@ -249,7 +249,7 @@ pipelines:
       - name: bundle
         type: CreateReleaseBundle
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           releaseBundleName: swampup
           releaseBundleVersion: v1.0.$run_number
           dryRun: false
@@ -272,7 +272,7 @@ pipelines:
       - name: sign
         type: SignReleaseBundle
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           inputResources:
             - name: releaseBundle
           outputResources:
@@ -281,7 +281,7 @@ pipelines:
       - name: distribute
         type: DistributeReleaseBundle
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           dryRun: false
           inputResources:
             - name: signedBundle
@@ -290,7 +290,7 @@ pipelines:
       - name: deploy
         type: Bash
         configuration:
-          nodePool: demo_pool
+          nodePool: ranjithr_pool
           environmentVariables:
             docker_repository: swampup
             artifactory_address: 34.66.107.45:8082
