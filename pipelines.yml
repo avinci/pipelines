@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       path: avinci/swampup-go-service
-      gitProvider: avinci_pipelines
+      gitProvider: avinci_github
 
   - name: svc_build_info
     type: BuildInfo
@@ -23,7 +23,7 @@ resources:
     type: GitRepo
     configuration:
       path: avinci/swampup-java-backend-service
-      gitProvider: avinci_pipelines
+      gitProvider: avinci_github
 
   - name: app_build_info
     type: BuildInfo
@@ -43,7 +43,7 @@ resources:
     type: GitRepo
     configuration:
       path: avinci/swampup-vue-frontend
-      gitProvider: avinci_pipelines
+      gitProvider: avinci_github
 
   - name: releaseBundle
     type: ReleaseBundle
