@@ -85,7 +85,7 @@ pipelines:
         configuration:
           dockerFileLocation: .
           dockerFileName: Dockerfile
-          dockerImageName: 34.66.107.45:8081/docker-local/gomicrosvc
+          dockerImageName: 34.66.110.173:8081/docker-local/gomicrosvc
           dockerImageTag: $run_number
           inputResources:
             - name: go_gitRepo
@@ -189,7 +189,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            dockerImageName: 34.66.107.45:8081/docker-local/app
+            dockerImageName: 34.66.110.173:8081/docker-local/app
             dockerImageTag: ${run_number}
             dummyEnv: 123
           inputResources:
