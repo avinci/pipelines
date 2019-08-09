@@ -49,14 +49,14 @@ resources:
     type: ReleaseBundle
     configuration:
       sourceDistribution: demoDist
-      name: swampup
+      name: demo_rb
       version: v1.0.0
 
   - name: signedBundle
     type: ReleaseBundle
     configuration:
       sourceDistribution: demoDist
-      name: swampup
+      name: demo_rb
       version: v1.0.0
 
   - name: distributionRules
@@ -112,7 +112,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepository: swampup
+          targetRepository: demoPipelines
           integrations:
             - name: demoArt
           inputResources:
@@ -226,7 +226,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: swampup
+          targetRepository: demoPipelines
           integrations:
             - name: demoArt
           inputResources:
@@ -239,7 +239,7 @@ pipelines:
       - name: bundle
         type: CreateReleaseBundle
         configuration:
-          releaseBundleName: swampup
+          releaseBundleName: demo_rb
           releaseBundleVersion: v1.0.$run_number
           dryRun: false
           sign: false
@@ -278,7 +278,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            docker_repository: swampup
+            docker_repository: demoPipelines
             artifactory_address: 34.66.107.45:8090
           integrations:
             - name: demoEdge
