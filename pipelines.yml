@@ -221,10 +221,12 @@ pipelines:
           onStart:
             - dockerImageName="34.66.110.173:8081/docker-local/app"
             - dockerImageTag=${run_number}
+            - echo $dockerImageName
+            - echo $dockerImageTag
             - rm -rf $run_dir/workspace/jfrog
-            - retry_command jfrog rt config --url $int_art_url --user $int_art_user --apikey $int_art_apikey --interactive=false
+            - retry_command jfrog rt config --url $int_demoArt_url --user $int_demoArt_user --apikey $int_demoArt_apikey --interactive=false
             - pushd $res_backend_gitRepo_resourcePath
-            - echo $int_art_url
+            - echo $int_demoArt_url
             - echo $run_Number
             - add_run_variables buildStepName=${step_name}
             - add_run_variables ${step_name}_buildNumber=${run_number}
