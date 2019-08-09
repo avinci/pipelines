@@ -78,14 +78,14 @@ resources:
         - 167.71.157.57
 
 pipelines:
-  - name: test
-    type: Jenkins
-    configuration:
-      integrations:
-        - name: demoJenkins
-
   - name: demo_service
     steps:
+      - name: test
+        type: Jenkins
+        configuration:
+          integrations:
+            - name: demoJenkins
+
       - name: bld_svc
         type: DockerBuild
         configuration:
