@@ -227,7 +227,7 @@ pipelines:
             - add_run_variables buildStepName=${step_name}
             - add_run_variables ${step_name}_buildNumber=${run_number}
             - add_run_variables ${step_name}_buildName=${pipeline_name}
-            - docker build --pull --no-cache -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_art_url} .
+            - docker build --pull --no-cache -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_demoArt_url} .
             - jfrog rt bce $pipeline_name $run_number
             - jfrog rt docker-push $dockerImageName:$dockerImageTag docker-local --build-name=$pipeline_name --build-number=$run_number
             - add_run_files /tmp/jfrog/. jfrog
