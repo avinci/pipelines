@@ -279,9 +279,9 @@ pipelines:
         configuration:
           environmentVariables:
             docker_repository: swampup
-            artifactory_address: 34.66.107.45:8082
+            artifactory_address: 34.66.107.45:8090
           integrations:
-            - name: edge_art
+            - name: demoEdge
           inputResources:
             - name: deploy_vm
             - name: svc_promoted_build_info
