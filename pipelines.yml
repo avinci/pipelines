@@ -205,10 +205,9 @@ pipelines:
       - name: build_app
         type: Bash
         configuration:
-          # environmentVariables:
-            # dockerImageName: 34.66.110.173:8081/docker-local/app
-            # dockerImageTag: ${run_number}
-            # dummyEnv: 123
+           environmentVariables:
+             dockerImageName: 34.66.110.173:8081/docker-local/app
+             dockerImageTag: ${run_number}
           inputResources:
             - name: backend_gitRepo
               trigger: false
@@ -219,15 +218,12 @@ pipelines:
             - name: demoArt
         execution:
           onStart:
+            #this is to fix the bug in env vars
             - dockerImageName="34.66.110.173:8081/docker-local/app"
             - dockerImageTag=${run_number}
-            - echo $dockerImageName
-            - echo $dockerImageTag
             - rm -rf $run_dir/workspace/jfrog
             - retry_command jfrog rt config --url $int_demoArt_url --user $int_demoArt_user --apikey $int_demoArt_apikey --interactive=false
             - pushd $res_backend_gitRepo_resourcePath
-            - echo $int_demoArt_url
-            - echo $run_Number
             - add_run_variables buildStepName=${step_name}
             - add_run_variables ${step_name}_buildNumber=${run_number}
             - add_run_variables ${step_name}_buildName=${pipeline_name}
