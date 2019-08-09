@@ -5,6 +5,13 @@ resources:
       path: avinci/swampup-go-service
       gitProvider: avinci_github
 
+  - name: testRes
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: demoArt
+      buildName: svc_build
+      buildNumber: 1
+
   - name: svc_build_info
     type: BuildInfo
     configuration:
@@ -85,6 +92,8 @@ pipelines:
         configuration:
           integrations:
             - name: demoJenkins
+          outputResources:
+            - name: testRes
 
       - name: bld_svc
         type: DockerBuild
