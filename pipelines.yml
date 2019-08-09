@@ -205,7 +205,7 @@ pipelines:
       - name: build_app
         type: Bash
         configuration:
-          environmentVariables:
+          # environmentVariables:
             # dockerImageName: 34.66.110.173:8081/docker-local/app
             # dockerImageTag: ${run_number}
             # dummyEnv: 123
