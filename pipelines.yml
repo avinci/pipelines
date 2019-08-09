@@ -78,6 +78,12 @@ resources:
         - 167.71.157.57
 
 pipelines:
+  - name: test
+    type: Jenkins
+    configuration:
+      integrations:
+        - name: demoJenkins
+
   - name: demo_service
     steps:
       - name: bld_svc
@@ -89,6 +95,8 @@ pipelines:
           dockerImageTag: $run_number
           inputResources:
             - name: go_gitRepo
+          inputSteps:
+            - name: test
           integrations:
             - name: demoArt
 
