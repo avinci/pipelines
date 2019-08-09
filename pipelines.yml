@@ -73,9 +73,9 @@ resources:
   - name: deploy_vm
     type: VmCluster
     configuration:
-      sshKey: deploy_ssh
+      sshKey: deploySsh
       targets:
-        - 206.189.209.158
+        - 167.71.157.57
 
 pipelines:
   - name: demo_service
