@@ -87,7 +87,7 @@ resources:
 pipelines:
   - name: demo_service
     steps:
-      - name: go-service-build
+      - name: go_service_build
         type: Jenkins
         configuration:
           integrations:
