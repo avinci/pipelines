@@ -175,7 +175,7 @@ pipelines:
         type: Bash
         configuration:
           environmentVariables:
-            dockerImageName: jfrog.local:5000/docker-local/app
+            dockerImageName: jfrog.local:5000/app
             dockerImageTag: ${run_number}
           inputResources:
             - name: backend_gitRepo
@@ -187,7 +187,7 @@ pipelines:
             - name: demoArt
         execution:
           onStart:
-            - dockerImageName="jfrog.local:5000/docker-local/app"             #this is to fix the bug in env vars
+            - dockerImageName="jfrog.local:5000/app"             #this is to fix the bug in env vars
             - dockerImageTag=${run_number}             #this is to fix the bug in env vars
             - rm -rf $run_dir/workspace/jfrog
             - retry_command jfrog rt config --url $int_demoArt_url --user $int_demoArt_user --apikey $int_demoArt_apikey --interactive=false
@@ -197,7 +197,7 @@ pipelines:
             - add_run_variables ${step_name}_buildName=${pipeline_name}
             - docker build --pull --no-cache -t $dockerImageName:$dockerImageTag --build-arg REGISTRY=${int_demoArt_url} .
             - jfrog rt bce $pipeline_name $run_number
-            - jfrog rt docker-push jfrog.local:5000/docker-local/app:$run_number docker-local --build-name=$pipeline_name --build-number=$run_number
+            - jfrog rt docker-push jfrog.local:5000/app:$run_number docker-local --build-name=$pipeline_name --build-number=$run_number
             - add_run_files /tmp/jfrog/. jfrog
 
       - name: publish_app_build
