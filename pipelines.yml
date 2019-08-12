@@ -11,7 +11,7 @@ resources:
       sourceArtifactory: demoArt
       buildName: svc_build
       buildNumber: 1
-
+      
   - name: svc_build_info
     type: BuildInfo
     configuration:
@@ -87,44 +87,13 @@ resources:
 pipelines:
   - name: demo_service
     steps:
-      - name: test
+      - name: go-service-build
         type: Jenkins
         configuration:
           integrations:
             - name: demoJenkins
           outputResources:
-            - name: testRes
-
-      - name: bld_svc
-        type: DockerBuild
-        configuration:
-          dockerFileLocation: .
-          dockerFileName: Dockerfile
-          dockerImageName: 34.66.110.173:8081/docker-local/gomicrosvc
-          dockerImageTag: $run_number
-          inputResources:
-            - name: go_gitRepo
-          inputSteps:
-            - name: test
-          integrations:
-            - name: demoArt
-
-      - name: push_svc
-        type: DockerPush
-        configuration:
-          targetRepository: docker-local
-          integrations:
-            - name: demoArt
-          inputSteps:
-            - name: bld_svc
-
-      - name: publish_svc_build
-        type: PublishBuildInfo
-        configuration:
-          inputSteps:
-            - name: push_svc
-          outputResources:
-            - name: svc_build_info
+            - name: svc_build_info  
 
       - name: promote_svc_build
         type: PromoteBuild
