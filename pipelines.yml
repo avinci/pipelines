@@ -98,7 +98,7 @@ pipelines:
       - name: promote_svc_build
         type: PromoteBuild
         configuration:
-          targetRepository: demoPipelines
+          targetRepository: demo-pipelines
           integrations:
             - name: demoArt
           inputResources:
@@ -211,7 +211,7 @@ pipelines:
       - name: promote_app_build
         type: PromoteBuild
         configuration:
-          targetRepository: demoPipelines
+          targetRepository: demo-pipelines
           integrations:
             - name: demoArt
           inputResources:
@@ -263,7 +263,7 @@ pipelines:
 #        type: Bash
 #        configuration:
 #          environmentVariables:
-#            docker_repository: demoPipelines
+#            docker_repository: demo-pipelines
 #            artifactory_address: 34.66.107.45:8090
 #          integrations:
 #            - name: demoEdge
