@@ -264,7 +264,7 @@ pipelines:
 #        configuration:
 #          environmentVariables:
 #            docker_repository: demo-pipelines
-#            artifactory_address: 34.66.107.45:8090
+#            artifactory_address: jfrog.local:5000
 #          integrations:
 #            - name: demoEdge
 #          inputResources:
