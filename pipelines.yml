@@ -12,38 +12,3 @@ resources:
     configuration:
       passing: 0
       failing: 0
-
-pipelines:
-  - name: jenkins_demo
-    steps:
-      - name: start_pip_step
-        type: Bash
-        configuration:
-          outputResources:
-            - name: app_docker
-        execution:
-          onExecute:
-            - write_output app_docker "imageTag=${run_number}"
-
-      - name: call_jenk_job
-        type: Jenkins
-        configuration:
-          jenkinsJobName: basic-api-mb
-          inputResources:
-            - name: app_docker
-          buildParameters:
-            imageName: ${res_app_docker_imageName}
-            imageTag: ${res_app_docker_imageTag}
-          integrations:
-            - name: demo_jenkins
-          outputResources:
-            - name: app_test_results
-
-      - name: fin_pip_step
-        type: Bash
-        configuration:
-          inputResources:
-            - name: app_test_results
-        execution:
-          onExecute:
-            - printenv | grep res_app_test_results
