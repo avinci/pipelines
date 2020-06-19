@@ -23,7 +23,6 @@ resources:
 
 pipelines:
   - name: jenkins_demo_1
-    configuration:
     steps:
       - name: build_app
         type: Bash
