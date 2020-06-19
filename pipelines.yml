@@ -7,7 +7,6 @@ pipelines:
         configuration:
           downloadURL: https://github.com/devops-recipes/app-mono/archive/master.zip
           downloadPath: monoRepo
-    steps:
       - name: test_002
         type: sample
         syntaxVersion: 0.0.2
