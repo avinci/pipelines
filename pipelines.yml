@@ -5,7 +5,7 @@ pipelines:
         type: sample
         syntaxVersion: 0.0.1
         configuration:
-          downloadURL: https://github.com/devops-recipes/app-mono/archive/master.zip
+          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
           downloadPath: monoRepo
 
       - name: test_002
@@ -14,6 +14,6 @@ pipelines:
         configuration:
           inputSteps:
             - name: test_001
-          downloadURL: https://github.com/devops-recipes/app-mono/archive/master.zip
+          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
           downloadPath: monoRepo
           doUnzip: true
