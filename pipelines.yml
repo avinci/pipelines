@@ -12,7 +12,7 @@ pipelines:
         syntaxVersion: 0.0.2
         configuration:
           inputSteps:
-            - test_001
+            - name: test_001
           downloadURL: https://github.com/devops-recipes/app-mono/archive/master.zip
           downloadPath: monoRepo
           doUnzip: true
