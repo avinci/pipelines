@@ -7,3 +7,13 @@ pipelines:
         configuration:
           downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
           downloadPath: monoRepo
+
+      - name: down_002
+        type: DownloadTar
+        syntaxVersion: 0.0.2
+        configuration:
+          inputSteps:
+            - name: down_001
+          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
+          downloadPath: monoRepo
+          doUnzip: true
