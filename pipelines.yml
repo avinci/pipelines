@@ -2,14 +2,14 @@ pipelines:
   - name: demo_extn
     steps:
       - name: test_001
-        type: sample
+        type: DownloadTar
         syntaxVersion: 0.0.1
         configuration:
           downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
           downloadPath: monoRepo
 
       - name: test_002
-        type: sample
+        type: DownloadTar
         syntaxVersion: 0.0.2
         configuration:
           inputSteps:
