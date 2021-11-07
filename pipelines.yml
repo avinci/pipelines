@@ -51,6 +51,7 @@ pipelines:
       - name: step1
         type: Bash
         configuration:
+          nodePool: k8nodes
           environmentVariables:
             stepOne: 3
             stepTwo: 4
