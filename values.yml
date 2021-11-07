@@ -1,0 +1,3 @@
+myRepo:
+  gitProvider: avinci_github
+  path: avinci/pipelines

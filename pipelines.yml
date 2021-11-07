@@ -1,68 +1,78 @@
-resources:
-  - name: app_docker
-    type: Image
-    configuration:
-      registry: demo_artifactory
-      sourceRepository: docker-local
-      imageName: dev.jfrog-pipelines.com:8082/docker-local/basicapi
-      imageTag: latest
+template: true   # required for local templates
+valuesFilePath: ./values.yml
 
-  - name: app_test_results
-    type: PropertyBag
+resources:
+  - name: pipeRepo
+    type: GitRepo
     configuration:
-      passing: 0
-      failing: 0
+      # SCM integration where the repository is located
+      gitProvider: {{ .Values.myRepo.gitProvider }} # this will be replaced from values.yml
+      # Repository path, including org name/repo name
+      path: {{ .Values.myRepo.path }} # this will be replaced from values.yml
+      branches:
+        # Specifies which branches will trigger dependent steps
+        include: master
+
+#  - name: app_docker
+#    type: Image
+#    configuration:
+#      registry: demo_artifactory
+#      sourceRepository: docker-local
+#      imageName: dev.jfrog-pipelines.com:8082/docker-local/basicapi
+#      imageTag: latest
 
 pipelines:
-  - name: demo_extn
-    steps:
-      - name: down_001
-        type: DownloadTar
-        syntaxVersion: 0.0.1
-        configuration:
-          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
-          downloadPath: monoRepo
+#  - name: demo_extn
+#    steps:
+#      - name: down_001
+#        type: DownloadTar
+#        syntaxVersion: 0.0.1
+#        configuration:
+#          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
+#          downloadPath: monoRepo
+#
+#      - name: down_002
+#        type: DownloadTar
+#        syntaxVersion: 0.0.2
+#        configuration:
+#          inputSteps:
+#            - name: down_001
+#          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
+#          downloadPath: monoRepo
+#          doUnzip: true
 
-      - name: down_002
-        type: DownloadTar
-        syntaxVersion: 0.0.2
+  - name: pipeSample
+    configuration:
+      environmentVariables:
+        readOnly:
+          pipeOne: 1
+          pipeTwo: 2
+    steps:
+      - name: step1
+        type: Bash
+        configuration:
+          environmentVariables:
+            stepOne: 3
+            stepTwo: 4
+          inputResources:
+            # Sets up step to be triggered when there are commit events to myFirstRepo
+            - name: pipeRepo
+        execution:
+          onExecute:
+            # Data from input resources is available as env variables in the step
+            - echo $res_pipeRepo_commitSha
+            # The next two commands add variables to run state, which is available to all downstream steps in this run
+            # Run state documentation: https://www.jfrog.com/confluence/display/JFROG/Creating+Stateful+Pipelines#CreatingStatefulPipelines-RunState
+            - add_run_variables current_runid=$run_id
+            - add_run_variables commitSha=$res_pipeRepo_commitSha
+
+      - name: step2
+        type: Bash
         configuration:
           inputSteps:
-            - name: down_001
-          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
-          downloadPath: monoRepo
-          doUnzip: true
-
-  - name: jenkins_demo
-    steps:
-      - name: start_pip_step
-        type: Bash
-        configuration:
-          outputResources:
-            - name: app_docker
+            - name: step1
         execution:
           onExecute:
-            - write_output app_docker "imageTag=${run_number}"
-
-      - name: call_jenk_job
-        type: Jenkins
-        configuration:
-          jenkinsJobName: basic-api-mb
-          inputResources:
-            - name: app_docker
-          buildParameters:
-            imageName: ${res_app_docker_imageName}
-            imageTag: ${res_app_docker_imageTag}
-          integrations:
-            - name: demo_jenkins
-          outputResources:
-            - name: app_test_results
-
-      - name: fin_pip_step
-        type: Bash
-        configuration:
-          inputResources:
-            - name: app_test_results
-        execution:
-          onExecute:
-            - printenv | grep res_app_test_results
+            # Demonstrates the availability of an env variable written to run state during step1
+            - echo $current_runid
+            - echo "commitSha is $commitSha"
