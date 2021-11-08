@@ -90,7 +90,7 @@ pipelines:
       environmentVariables:
         readOnly:
           pipeOne: 1
-
+    steps:
       - name: test
         type: PowerShell
         configuration:
