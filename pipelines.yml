@@ -13,6 +13,13 @@ resources:
         # Specifies which branches will trigger dependent steps
         include: master
 
+  - name: docker_prod_build_info
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: bsArt
+      buildName: dockerBuild
+      buildNumber: 1
+
 #  - name: app_docker
 #    type: Image
 #    configuration:
@@ -83,7 +90,7 @@ pipelines:
       environmentVariables:
         readOnly:
           pipeOne: 1
-    steps:
+
       - name: test
         type: PowerShell
         configuration:
@@ -91,3 +98,17 @@ pipelines:
         execution:
           onExecute:
             - write-output  "executing step..."
+
+  - name: docker_prod_pipeline
+    steps:
+      - name: docker_promote_build
+        type: PromoteBuild
+        configuration:
+          targetRepository: docker-prod-local
+          integrations:
+            - name: bsArt
+          inputResources:
+            - name: docker_dev_build_info
+              trigger: false
+          outputResources:
+            - name: docker_prod_build_info
