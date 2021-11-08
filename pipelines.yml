@@ -104,7 +104,10 @@ pipelines:
       - name: docker_promote_build
         type: PromoteBuild
         configuration:
+          failOnValidate: true
+          copy: true
           targetRepository: docker-prod-local
+          comment: "promoted via pipeline ${pipeline_name} in run number ${run_number}"
           integrations:
             - name: bsArt
           inputResources:
