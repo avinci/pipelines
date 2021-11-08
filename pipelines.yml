@@ -20,6 +20,13 @@ resources:
       buildName: dockerBuild
       buildNumber: 1
 
+  - name: release_bundle
+    type: ReleaseBundle
+    configuration:
+      sourceDistribution: bsArt
+      name: demo_docker
+      version: v1.0.0
+
 #  - name: app_docker
 #    type: Image
 #    configuration:
@@ -115,3 +122,24 @@ pipelines:
               trigger: false
           outputResources:
             - name: docker_prod_build_info
+
+      - name: bundle
+        type: CreateReleaseBundle
+        configuration:
+          releaseBundleName: demo_docker
+          releaseBundleVersion: v1.0.${run_number}
+          dryRun: false
+          sign: false
+          description: "some random test description"
+          inputResources:
+            - name: docker_prod_build_info
+            - name: mvn_build_info
+              trigger: false
+          outputResources:
+            - name: release_bundle
+          releaseNotes:
+            syntax: markdown
+            content: |
+              ## Heading
+                * Bullet
+                * Points
