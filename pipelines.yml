@@ -77,3 +77,17 @@ pipelines:
             # Demonstrates the availability of an env variable written to run state during step1
             - echo $current_runid
             - echo "commitSha is $commitSha"
+
+  - name: winSample
+      configuration:
+        environmentVariables:
+          readOnly:
+            pipeOne: 1
+      steps:
+        - name: test
+          type: PowerShell
+          configuration:
+            nodePool: w19-static
+        execution:
+          onExecute:
+            - write-output  "executing step..."
