@@ -79,15 +79,15 @@ pipelines:
             - echo "commitSha is $commitSha"
 
   - name: winSample
-      configuration:
-        environmentVariables:
-          readOnly:
-            pipeOne: 1
-      steps:
-        - name: test
-          type: PowerShell
-          configuration:
-            nodePool: w19-static
+    configuration:
+      environmentVariables:
+        readOnly:
+          pipeOne: 1
+    steps:
+      - name: test
+        type: PowerShell
+        configuration:
+          nodePool: w19-static
         execution:
           onExecute:
             - write-output  "executing step..."
