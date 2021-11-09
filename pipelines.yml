@@ -46,25 +46,6 @@ resources:
         - "GB"
 
 pipelines:
-#  - name: demo_extn
-#    steps:
-#      - name: down_001
-#        type: DownloadTar
-#        syntaxVersion: 0.0.1
-#        configuration:
-#          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
-#          downloadPath: monoRepo
-#
-#      - name: down_002
-#        type: DownloadTar
-#        syntaxVersion: 0.0.2
-#        configuration:
-#          inputSteps:
-#            - name: down_001
-#          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
-#          downloadPath: monoRepo
-#          doUnzip: true
-
   - name: pipe_sample
     configuration:
       environmentVariables:
@@ -170,3 +151,22 @@ pipelines:
             - name: signed_bundle
               trigger: false
             - name: distribution_rules
+
+  - name: extensions_sample
+    steps:
+      - name: down_001
+        type: DownloadTar
+        syntaxVersion: 1.0.0
+        configuration:
+          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
+          downloadPath: monoRepo
+
+#      - name: down_002
+#        type: DownloadTar
+#        syntaxVersion: 0.0.2
+#        configuration:
+#          inputSteps:
+#            - name: down_001
+#          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
+#          downloadPath: monoRepo
+#          doUnzip: true
