@@ -155,7 +155,7 @@ pipelines:
   - name: extensions_sample
     steps:
       - name: down_001
-        type: DownloadTar
+        type: EquiCom/DownloadTar
         syntaxVersion: 1.0.0
         configuration:
           downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
