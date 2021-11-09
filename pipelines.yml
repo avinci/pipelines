@@ -170,3 +170,13 @@ pipelines:
           downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
           downloadPath: monoRepo
           doUnzip: true
+
+      - name: down_2_0_1
+        type: EquiCom/DownloadTar
+        syntaxVersion: 2.0.1
+        configuration:
+          inputSteps:
+            - name: down_1_0_0
+          downloadURL: https://github.com/devops-recipes/app-mono/tarball/master
+          downloadPath: monoRepo
+          doUnzip: true
