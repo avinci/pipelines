@@ -2,7 +2,7 @@ template: true   # required for local templates
 valuesFilePath: ./values.yml
 
 resources:
-  - name: pipeRepo
+  - name: pipe_repo
     type: GitRepo
     configuration:
       # SCM integration where the repository is located
@@ -27,13 +27,12 @@ resources:
       name: demo_docker
       version: v1.0.0
 
-#  - name: app_docker
-#    type: Image
-#    configuration:
-#      registry: demo_artifactory
-#      sourceRepository: docker-local
-#      imageName: dev.jfrog-pipelines.com:8082/docker-local/basicapi
-#      imageTag: latest
+  - name: signed_bundle
+    type: ReleaseBundle
+    configuration:
+      sourceDistribution: demoDist
+      name: demo_docker
+      version: v1.0.0
 
 pipelines:
 #  - name: demo_extn
@@ -55,7 +54,7 @@ pipelines:
 #          downloadPath: monoRepo
 #          doUnzip: true
 
-  - name: pipeSample
+  - name: pipe_sample
     configuration:
       environmentVariables:
         readOnly:
@@ -70,15 +69,15 @@ pipelines:
             stepTwo: 4
           inputResources:
             # Sets up step to be triggered when there are commit events to myFirstRepo
-            - name: pipeRepo
+            - name: pipe_repo
         execution:
           onExecute:
             # Data from input resources is available as env variables in the step
-            - echo $res_pipeRepo_commitSha
+            - echo $res_pipe_repo_commitSha
             # The next two commands add variables to run state, which is available to all downstream steps in this run
             # Run state documentation: https://www.jfrog.com/confluence/display/JFROG/Creating+Stateful+Pipelines#CreatingStatefulPipelines-RunState
             - add_run_variables current_runid=$run_id
-            - add_run_variables commitSha=$res_pipeRepo_commitSha
+            - add_run_variables commitSha=$res_pipe_repo_commitSha
 
       - name: step2
         type: Bash
@@ -92,7 +91,7 @@ pipelines:
             - echo $current_runid
             - echo "commitSha is $commitSha"
 
-  - name: winSample
+  - name: win_sample
     configuration:
       environmentVariables:
         readOnly:
@@ -143,3 +142,11 @@ pipelines:
               ## Heading
                 * Bullet
                 * Points
+
+      - name: sign
+        type: SignReleaseBundle
+        configuration:
+          inputResources:
+            - name: release_bundle
+          outputResources:
+            - name: signed_bundle
