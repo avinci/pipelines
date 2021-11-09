@@ -154,7 +154,7 @@ pipelines:
 
   - name: extensions_sample
     steps:
-      - name: down_001
+      - name: down_1_0_0
         type: EquiCom/DownloadTar
         syntaxVersion: 1.0.0
         configuration:
