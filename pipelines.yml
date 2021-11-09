@@ -30,7 +30,7 @@ resources:
   - name: signed_bundle
     type: ReleaseBundle
     configuration:
-      sourceDistribution: demoDist
+      sourceDistribution: distribution
       name: demo_docker
       version: v1.0.0
 
