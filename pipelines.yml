@@ -34,6 +34,17 @@ resources:
       name: demo_docker
       version: v1.0.0
 
+  - name: distribution_rules
+    type: DistributionRule
+    configuration:
+      sourceDistribution: distribution
+      serviceName: "*"
+      siteName: "*"
+      cityName: "*"
+      countryCodes:
+        - "CN"
+        - "GB"
+
 pipelines:
 #  - name: demo_extn
 #    steps:
@@ -150,3 +161,12 @@ pipelines:
             - name: release_bundle
           outputResources:
             - name: signed_bundle
+
+      - name: distribute
+        type: DistributeReleaseBundle
+        configuration:
+          dryRun: false
+          inputResources:
+            - name: signed_bundle
+              trigger: false
+            - name: distribution_rules
